@@ -1,22 +1,22 @@
+"use client";
+import { prisma } from "@/lib/db";
 
-import {prisma} from "@/lib/db"
+export default async function ProductPage({ params, } : {
+    params: { productsID: string}
+}) {
 
-export default async function ProductPage(){
+  const product = await prisma.product.findUnique({
+    where: {
+      id: params.productsID,
+    },
+  });
 
-    
-
-    return(
-        <>
-        
-        <h1>Hello product</h1>
-        
-        </>
-    )
+  return (
+    <>
+      <p>Automobilio name: {product?.productName || null}</p>
+      <p>Automobilio modelis: {product?.productModel}</p>
+      <p>Automobilio aprašymas: {product?.aboutProduct}</p>
+      <button>Add to Cart</button>
+    </>
+  );
 }
-
-
-
-
-
-
-

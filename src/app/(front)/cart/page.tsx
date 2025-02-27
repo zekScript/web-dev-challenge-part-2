@@ -1,37 +1,42 @@
-
-import { prisma } from "@/lib/db"
-import Link from "next/link"
+"use client";
+import { prisma } from "@/lib/db";
+import { getCurrentUser } from "@/server/currentUser";
+import Link from "next/link";
 const Cart: React.FC = async () => {
+  const productLists = await prisma.product.findMany();
 
+  // const getAuthor = await prisma.users.findUnique({
+  //     where: {
+  //       id: user?.id,
+  //     },
+  //     include: {
+  //       products: true, // All posts where authorId == 20
+  //     },
+  //   });
 
-const productLists = await prisma.product.findMany()
+  const user = getCurrentUser();
 
+  return (
+    <>
+      <h1>Your cart:</h1>
+      <h1>Order by:{user?.name}</h1>
 
-    return(
-        <>
-        <h1>Your cart</h1>
-
-        {productLists.map((productList) => (
-            
-            <div key={productList.id} className="w-full h-full ">
-                <div>
-                    <Link href={`/products/${productList.id}`}>
-                    <h1>Order by:        {/* Get current user */}                    </h1>
-                    <p>Automobilio name: {productList.productName}</p>
-                    <p>Automobilio modelis: {productList.productModel}</p>
-                    <p>Automobilio aprašymas: {productList.aboutProduct}</p>
-                    {/* <p>užsakymo Data: {productList.orderDate as string}</p> */}
-                    </Link>
-                    
-
-
-
-                </div>
-            </div>
-        ))}
-        
-        </>
-    )
-}
+      <h1>Your order is:</h1>
+      {productLists.map((productList) => (
+        <div key={productList.id} className="w-full h-full ">
+          <div>
+            <Link href={`/products/${productList.id}`}>
+              {productList.aboutProduct}
+              {productList.productModel}
+              {productList.productName}
+              {productList.productStatus}
+            </Link>
+          </div>
+        </div>
+      ))}
+      <button>Vikdyti</button>
+    </>
+  );
+};
 
 export default Cart;
