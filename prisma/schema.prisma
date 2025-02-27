@@ -14,6 +14,20 @@ datasource db {
 }
 
 model users {
-  id    Int     @default(autoincrement()) @id
-  name  String
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String
+  password   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  // role       String   @default("USER")
+}
+
+model product {
+  id            String   @id @default(cuid())
+  productName   String
+  productModel  String
+  aboutProduct  String
+  orderDate     DateTime @default(now())
+  productStatus String   @default("Laukiama")
 }

@@ -1,3 +1,4 @@
+import NavBar from "@/components/navs/nav-bar";
 
 type Props = {
 
@@ -13,6 +14,7 @@ const Layout: React.FC<Props> = ({children}) => {
         <>
         
         {/* Topbar */}
+        <NavBar></NavBar>
         {children}
         {/* Footer */}
 

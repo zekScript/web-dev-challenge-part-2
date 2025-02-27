@@ -3,7 +3,8 @@ export default function Home() {
   return (
    <>
    
-    Hello world
+Homme page
+
 
    </>
   );
