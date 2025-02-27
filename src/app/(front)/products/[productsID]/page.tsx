@@ -1,13 +1,13 @@
 "use client";
 import { prisma } from "@/lib/db";
 
-export default async function ProductPage({ params, } : {
-    params: { productsID: string}
+export default async function ProductPage({ params } : {
+    params: Promise<{ productsID: string}>;
 }) {
 
   const product = await prisma.product.findUnique({
     where: {
-      id: params.productsID,
+      id: (await params).productsID,
     },
   });
 
